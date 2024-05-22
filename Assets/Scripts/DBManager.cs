@@ -13,7 +13,8 @@ public class DBManager : MonoBehaviour
     public static DBManager Instance { get; private set; }
     private string dbUri = "URI=file:mydb.sqlite";
     private string SQL_COUNT_ELEMNTS = "SELECT count(*) FROM Posiciones;";
-    private string SQL_CREATE_POSICIONES = "CREATE TABLE ...";
+    //Name; Timestamp; x; y; z
+    private string SQL_CREATE_POSICIONES = "CREATE TABLE IF NOT EXISTS Posiciones(id INTEGER PRIMARY KEY, name TEXT not null, timestamp REAL not null, x REAL not null, y REAL not null, z REAL not null);";
 
     private IDbConnection dbConnection;
 
@@ -30,7 +31,7 @@ public class DBManager : MonoBehaviour
         }
 
         OpenDatabase();
-        //InitializeDB();
+        InitializeDB();
     }
 
     private void OpenDatabase()
@@ -50,8 +51,9 @@ public class DBManager : MonoBehaviour
     }
 
     public void SavePosition(CharacterPosition position)
-    {
-        string command = "INSERT INTO ...";
+    {  
+        //Debug.Log($"INSERT INTO Posiciones(name, timestamp, x, y, z) VALUES('{position.name}','{position.timestamp}','{position.position.x}','{position.position.y}','{position.position.z}');");
+        string command = $"INSERT INTO Posiciones(name, timestamp, x, y, z) VALUES('{position.name}','{position.timestamp}','{position.position.x}','{position.position.y}','{position.position.z}');";
         IDbCommand dbCommand = dbConnection.CreateCommand();
         dbCommand.CommandText = command;
         dbCommand.ExecuteNonQuery();

@@ -42,6 +42,7 @@ public class DataManager : MonoBehaviour
             prevTime += logInterval;
             CharacterPosition cp = new CharacterPosition(player.name, currentTime, player.transform.position);
             playerPos.positions.Add(cp);
+            DBManager.Instance.SavePosition(cp);
             foreach (GameObject enemy in enemies) {
                 CharacterPosition en = new CharacterPosition(enemy.name, currentTime, enemy.transform.position);
                 enemyPos.positions.Add(en);
@@ -52,6 +53,7 @@ public class DataManager : MonoBehaviour
             SaveCSVToFile();
             SaveJSONToFile();
             SaveXMLToFile();
+            
         }
     }
 
