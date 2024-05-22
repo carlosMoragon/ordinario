@@ -101,4 +101,5 @@ public class DataManager : MonoBehaviour
             serializer.Serialize(stream, enemyPos);
         }
     }
+
 }
